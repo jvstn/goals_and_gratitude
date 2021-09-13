@@ -1,11 +1,12 @@
 import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from 'mongoose';
-const mongod = new MongoMemoryServer();
+let mongod: MongoMemoryServer;
 
 /**
  * Connect to the in-memory database.
  */
 export const connectDb = async () => {
+  mongod = await MongoMemoryServer.create();
   const uri = await mongod.getUri();
   await mongoose.connect(uri);
 };

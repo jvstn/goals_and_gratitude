@@ -1,15 +1,13 @@
 import {model, Model, Schema} from 'mongoose'
-
-interface IUser {
-  name: string;
-  username: string;
-  password: string;
-  createdAt: string;
-}
+import { IUser } from '../utils/authUtils';
 
 const userSchema = new Schema<IUser>({
-  name: String,
   username: String,
+  email: {
+    type: 'string',
+    required: true,
+    unique: true
+  },
   password: String,
   createdAt: { type: "string", default: new Date().toISOString() }
 })
