@@ -98,7 +98,6 @@ export default function Simple() {
         ) : null}
       </Box>
 
-      <Box p={4}>Main Content Here</Box>
     </>
   );
 }
