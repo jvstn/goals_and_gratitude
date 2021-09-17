@@ -20,4 +20,3 @@ Then - observable result
 - [ ] New unit tests written
 - [ ] Regression tests passed
 - [ ] Code runs in test environment
-- [ ] Code reviewed by a project admin
