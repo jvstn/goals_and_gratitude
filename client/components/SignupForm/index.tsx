@@ -17,25 +17,28 @@ import axios from 'axios';
 
 
 export default function SignupForm(): ReactElement {
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const toast = useToast();
 
   const handleSumbit = () => {
-    console.log(email, name, password);
+    setLoading(true);
     axios.post('http://localhost:5000/api/signup', {
       name,
       email,
       password,
     })
       .then(({data}: any) => {
+        setLoading(false)
         toast({
           status: "success",
           description: data.message,
         })
       })
       .catch((err) => {
+        setLoading(false)
         toast({
           status: "error",
           description: err.message,
@@ -53,16 +56,23 @@ export default function SignupForm(): ReactElement {
         <Stack spacing={4}>
           <FormControl id="Name">
             <FormLabel>Name</FormLabel>
-            <Input type="text" onChange={(e) => setName(e.target.value)} />
+
+            <Input
+              type="text"
+              aria-label="name"
+              onChange={(e) => setName(e.target.value)}
+            />
           </FormControl>
           <FormControl id="email">
             <FormLabel>Email address</FormLabel>
-            <Input type="email" onChange={(e) => setEmail(e.target.value)} />
+            
+            <Input type="email" aria-label="email" onChange={(e) => setEmail(e.target.value)} />
           </FormControl>
           <FormControl id="password">
             <FormLabel>Password</FormLabel>
             <Input
               type="password"
+              aria-label="password"
               onChange={(e) => setPassword(e.target.value)}
             />
           </FormControl>
@@ -76,6 +86,8 @@ export default function SignupForm(): ReactElement {
               <Link color={"blue.400"}>Forgot password?</Link>
             </Stack>
             <Button
+              isLoading={loading}
+              loadingText={" Submitting"}
               bg={"blue.400"}
               color={"white"}
               _hover={{
