@@ -1,10 +1,9 @@
 import { Request, Response, Router } from 'express'
-import { helloWorld } from '../controllers/hello';
-
+import {signupUser} from '../controllers/auth'
 
 const router = Router();
 
 
-router.get('/', helloWorld)
+router.post('/signup', signupUser)
 
 module.exports = router;
