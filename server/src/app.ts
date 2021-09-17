@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import cors from 'cors'
 import morgan from 'morgan'
 import dotenv from 'dotenv'
+import cookieParser from 'cookie-parser'
 
 dotenv.config();
 export const port = 5000;
@@ -11,6 +12,7 @@ export const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
+app.use(cookieParser())
 mongoose
   .connect("mongodb://localhost:27017/goals")
   .then(() => console.log("Db connected"))

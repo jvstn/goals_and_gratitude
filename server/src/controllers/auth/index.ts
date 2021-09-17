@@ -29,9 +29,9 @@ export const signupUser = async (req: Request, res: Response) => {
     });
     res.cookie("token", token, {
       httpOnly: true,
-    })
-      .status(200)
-      .json({ message: "Successful registration", email, name});
+    });
+    res.status(200);
+    res.json({ message: "Successful registration", email, name});
   } catch (err) {
     console.log(err);
     res.status(500).send("Error please try again later");

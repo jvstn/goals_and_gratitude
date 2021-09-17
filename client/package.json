@@ -6,7 +6,7 @@
     "testEnvironment": "js-dom"
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "node server.js",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -17,7 +17,11 @@
     "@chakra-ui/react": "^1.6.7",
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
+    "@types/express": "^4.17.13",
+    "esm": "^3.2.25",
+    "express": "^4.17.1",
     "framer-motion": "^4.1.17",
+    "http-proxy-middleware": "^2.0.1",
     "next": "11.1.2",
     "react": "17.0.2",
     "react-dom": "17.0.2"
@@ -34,6 +38,7 @@
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.2",
     "jest": "^27.2.0",
+    "ts-node": "^10.2.1",
     "typescript": "4.4.2"
   }
 }
