@@ -8,7 +8,6 @@ dotenv.config();
 export const signupUser = async (req: Request, res: Response) => {
   try {
     const { name, email, password } = req.body;
-    console.log(name, email, password);
     // Want all fields to be entered
     if (!name) return res.status(400).send("name required");
     if (!password) return res.status(400).send("Password required");

@@ -12,15 +12,15 @@ afterAll(async () => await closeDb());
 
 describe("Signup route", () => {
   const testUser = {
-    username: "testUser",
+    name: "testUser",
     email: "test@email.com",
     password: "testPassword",
   };
   
-  const signupUser = async(username = testUser.username, email = testUser.email) => {
+  const signupUser = async(name = testUser.name, email = testUser.email) => {
     const { password } = testUser;
     const res = await request(app).post("/api/signup").send({
-      username: username,
+      name: name,
       email: email,
       password: password,
     });
@@ -42,12 +42,5 @@ describe("Signup route", () => {
     expect(res.statusCode).toBe(400);
     expect(res.text).toBe("Email already in use. Please login");
   });
-
-  it('should not allow duplicate usernames', async () => {
-    await signupUser();
-    const res = await signupUser(testUser.username, "alt@email.com");
-    expect(res.statusCode).toBe(400);
-    expect(res.text).toBe("Username already in use. Choose another")
-  })
   
 });
