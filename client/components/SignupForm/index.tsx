@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 
 import {
   Box,
@@ -10,9 +10,38 @@ import {
   Link,
   Button,
   useColorModeValue,
+  useToast
 } from "@chakra-ui/react";
+import axios from 'axios';
+
+
 
 export default function SignupForm(): ReactElement {
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const toast = useToast();
+
+  const handleSumbit = () => {
+    console.log(email, name, password);
+    axios.post('http://localhost:5000/api/signup', {
+      name,
+      email,
+      password,
+    })
+      .then(({data}: any) => {
+        toast({
+          status: "success",
+          description: data.message,
+        })
+      })
+      .catch((err) => {
+        toast({
+          status: "error",
+          description: err.message,
+        })
+      });
+  }
   return (
     <div>
       <Box
@@ -22,13 +51,20 @@ export default function SignupForm(): ReactElement {
         p={8}
       >
         <Stack spacing={4}>
+          <FormControl id="Name">
+            <FormLabel>Name</FormLabel>
+            <Input type="text" onChange={(e) => setName(e.target.value)} />
+          </FormControl>
           <FormControl id="email">
             <FormLabel>Email address</FormLabel>
-            <Input type="email" />
+            <Input type="email" onChange={(e) => setEmail(e.target.value)} />
           </FormControl>
           <FormControl id="password">
             <FormLabel>Password</FormLabel>
-            <Input type="password" />
+            <Input
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </FormControl>
           <Stack spacing={10}>
             <Stack
@@ -45,8 +81,9 @@ export default function SignupForm(): ReactElement {
               _hover={{
                 bg: "blue.500",
               }}
+              onClick={handleSumbit}
             >
-              Sign in
+              Sign Up
             </Button>
           </Stack>
         </Stack>

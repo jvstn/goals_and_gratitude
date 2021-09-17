@@ -1,28 +1,37 @@
-import { exec } from "child_process";
 import { Request, Response } from "express";
 import { User } from "../../models/user";
 import { hashPassword } from "../../utils/hash";
+import jwt from 'jsonwebtoken'
+const dotenv = require("dotenv");
+dotenv.config();
 
 export const signupUser = async (req: Request, res: Response) => {
   try {
-    const { username, email, password } = req.body;
-    // Validate all required fields
-    if (!username) return res.status(400).send("Username required");
+    const { name, email, password } = req.body;
+    console.log(name, email, password);
+    // Want all fields to be entered
+    if (!name) return res.status(400).send("name required");
     if (!password) return res.status(400).send("Password required");
-    if (!email) return res.status(400).send("email required");
-    
+    if (!email) return res.status(400).send("Email required");
 
-    //check if email or username taken
+    //don't want duplicate accounts
     const emailInUse = await User.findOne({ email }).exec();
     if (emailInUse)
       return res.status(400).send("Email already in use. Please login");
-    const userNameTaken = await User.findOne({ username }).exec();
-    if (userNameTaken)
-      return res.status(400).send("Username already in use. Choose another")
-    
+
+    // Don't want plain-text passwords in db
     const hashedPassword = await hashPassword(password);
-    User.create({username, email, password: hashedPassword})
-    res.status(200).send("Sucessful registration");
+    User.create({ name, email, password: hashedPassword });
+    //In order to protect against XSS and CSRF use cookies
+    const token = await jwt.sign({ email }, process.env.JWT_SECRET as string, {
+      expiresIn: "14d",
+      algorithm: "HS256",
+    });
+    res.cookie("token", token, {
+      httpOnly: true,
+    })
+      .status(200)
+      .json({ message: "Successful registration", email, name});
   } catch (err) {
     console.log(err);
     res.status(500).send("Error please try again later");
