@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { User } from "../../models/user";
-import { hashPassword } from "../../utils/hash";
+import { User } from "../../../models/user";
+import { hashPassword } from "../../../utils/hash";
 import jwt from 'jsonwebtoken'
 const dotenv = require("dotenv");
 dotenv.config();
