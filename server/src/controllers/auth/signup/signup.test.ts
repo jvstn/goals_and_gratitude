@@ -1,10 +1,7 @@
-import mongoose from "mongoose";
 import request from "supertest";
 import { app } from "../../../app";
 import { User } from "../../../models/user";
 import { clearDb, closeDb, connectDb } from "../../../utils/dbHandler";
-
-mongoose.disconnect();
 
 beforeAll(async () => await connectDb());
 afterEach(async () => await clearDb());
