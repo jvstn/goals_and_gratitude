@@ -7,7 +7,7 @@ describe('LoginForm', () => {
   it('should render', () => {
     const { getByText } = render(<LoginForm />)
 
-    expect(getByText('Email Address')).toBeInTheDocument()
+    expect(getByText('Email address')).toBeInTheDocument()
   })
   it('should have email textbox', () => {
     const { getByLabelText } = render(<LoginForm />);
@@ -21,11 +21,10 @@ describe('LoginForm', () => {
     fireEvent.change(passwordInput, { target: { value: 'testPass' } });
     expect(passwordInput.value).toBe('testPass');
   })
-  it('should have loading text', async () => {
+  it('should have show user loading', () => {
     const { getByLabelText, getByText } = render(<LoginForm />);
-    const submitButton = getByLabelText('submitButton') as HTMLButtonElement;
+    const submitButton = getByLabelText('submit-button') as HTMLButtonElement;
     fireEvent.click(submitButton);
-    const loadingText = await getByText('Submitting');
-    expect(loadingText).toBeTruthy();
+    expect(getByText('Submitting')).toBeInTheDocument();
   })
 })

@@ -1,7 +1,6 @@
 import React from "react";
 import { fireEvent, render } from "../../utils/test-utils";
 import SignupForm from "./";
-import axios from "axios";
 
 describe("SignupForm", () => {
   it("should render", () => {
@@ -33,7 +32,6 @@ describe("SignupForm", () => {
   it("should add loading on submit", async () => {
     const { getByText, getByRole } = render(<SignupForm />);
     fireEvent.click(getByRole("button"));
-
     expect(getByText(/Submitting/)).toBeInTheDocument();
   });
 });
