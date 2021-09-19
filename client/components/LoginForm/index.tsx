@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useContext, useReducer, useState } from "react";
 import {
   Box,
   FormControl,
@@ -12,11 +12,13 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
+import { Context } from "../../context";
 
 export default function LoginForm(): ReactElement {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
+  const {state, dispatch} = useContext(Context)
   const toast = useToast();
   const handleSubmit = () => {
     setLoading(true);
@@ -28,6 +30,7 @@ export default function LoginForm(): ReactElement {
           status: "success",
           description: "Succesful login",
         });
+        dispatch({ type: 'SET_USER', payload: data})
         setLoading(false);
       })
       .catch((err) => {
