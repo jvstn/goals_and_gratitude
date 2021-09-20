@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import { Context } from "../../context";
+import router, {useRouter} from 'next/router';
 
 export default function LoginForm(): ReactElement {
   const [loading, setLoading] = useState(false);
@@ -32,6 +33,7 @@ export default function LoginForm(): ReactElement {
         });
         dispatch({ type: 'SET_USER', payload: data })
         window.localStorage.setItem('user', JSON.stringify(data))
+        router.push('/dashboard');
         setLoading(false);
       })
       .catch((err) => {
