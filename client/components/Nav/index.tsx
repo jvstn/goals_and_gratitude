@@ -18,7 +18,7 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 
-const Links = ["register", "signup"];
+const Links = ["login", "signup"];
 
 const NavLink = ({ children, href }: { children: ReactNode, href: string }) => (
   <Link
@@ -35,7 +35,7 @@ const NavLink = ({ children, href }: { children: ReactNode, href: string }) => (
   </Link>
 );
 
-export default function Simple() {
+export default function Nav() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
