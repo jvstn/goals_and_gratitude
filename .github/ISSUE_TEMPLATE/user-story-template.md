@@ -1,14 +1,14 @@
 ---
 name: User Story Template
 about: User story for new functionality
-title: As a <user-type>, I want <feature>, so that <benefit>.
+title: 
 labels: ''
 assignees: ''
 
 ---
 
 ### User Story
-
+As a <user-type>, I want <feature>, so that <benefit>.
 
 ### Acceptance Criteria
 Given - context
