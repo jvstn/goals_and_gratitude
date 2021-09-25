@@ -24,7 +24,7 @@ export default function LoginForm(): ReactElement {
   const handleSubmit = () => {
     setLoading(true);
     axios
-      .post("http://localhost:5000/api/login", { email, password })
+      .post("/api/login", { email, password })
       .then(({ data }) => {
         console.log(data);
         toast({
