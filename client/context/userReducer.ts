@@ -1,6 +1,6 @@
 export interface IAction {
   type: string,
-  payload: any,
+  payload?: any,
 }
 export const userReducer = (state: any, action: IAction) => {
   switch (action.type) {
@@ -9,6 +9,11 @@ export const userReducer = (state: any, action: IAction) => {
         ...state,
         user: action.payload,
       };
+    case "CLEAR_USER":
+      return {
+        ...state,
+        user: null
+      }
     default:
       return state;
   }
