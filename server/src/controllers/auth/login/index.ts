@@ -14,7 +14,7 @@ export const login = async (req: Request, res: Response) => {
       return res.status(400).send({ message: "Please enter your password" });
 
     // check if email has an account linked
-    const user: IUser = await User.findOne({ email });
+    const user = await (await User.findOne({ email })).toObject();
     if (!user)
       return res
         .status(400)
@@ -37,9 +37,9 @@ export const login = async (req: Request, res: Response) => {
     res.status(200);
     
     // So hashed password not readable on client
-    user.password = null;
+    delete user.password;
     
-    res.send(user);
+    res.json({message: "Login successful", user});
 
   } catch (error) {
     console.log(error);
