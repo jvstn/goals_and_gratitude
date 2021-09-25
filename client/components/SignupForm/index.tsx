@@ -25,7 +25,7 @@ export default function SignupForm(): ReactElement {
 
   const handleSumbit = () => {
     setLoading(true);
-    axios.post('http://localhost:5000/api/signup', {
+    axios.post('/api/signup', {
       name,
       email,
       password,

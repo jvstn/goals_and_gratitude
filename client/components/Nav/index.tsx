@@ -17,6 +17,7 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
+import LogoutButton from "../LogoutButton";
 
 const Links = ["login", "signup"];
 
@@ -84,6 +85,9 @@ export default function Nav() {
                 <MenuItem>Link 2</MenuItem>
                 <MenuDivider />
                 <MenuItem>Link 3</MenuItem>
+                <Box marginTop="7">
+                <LogoutButton />
+                </Box>
               </MenuList>
             </Menu>
           </Flex>
