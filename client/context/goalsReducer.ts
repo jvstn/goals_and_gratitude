@@ -15,7 +15,7 @@ export const goalsReducer = (state: IGoalState, action: IAction) => {
     case "ADD_GOAL":
       return {
         ...state,
-        goals: state.goals.concat(action.payload)
+        goals: state.goals.concat({text: action.payload})
       }
     case "UPDATE_GOAL":
       const idxToUpdate = state.goals.indexOf(action.payload);
