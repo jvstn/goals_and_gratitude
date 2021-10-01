@@ -1,39 +1,42 @@
 import { Box, List, Text } from '@chakra-ui/layout';
-import { chakra } from '@chakra-ui/system';
 import React, { ReactElement, useContext } from 'react'
 import { Context } from '../../context';
+import { IItem } from '../../context/itemsReducer';
 import ListItem from '../ListItem';
 
 interface Props {
-  type: "goal" | "grat";
+  type: "goals" | "grats";
 }
 
 export default function ItemList({ type }: Props): ReactElement {
   const titles = {
-    goal: "Goals",
-    grat: "Gratitudes"
+    goals: "Goals",
+    grats: "Gratitudes"
   }
-  const { state, dispatch } = useContext(Context);
+  const { state } = useContext(Context);
+  const items = state && state[type];
+  
   return (
     <div>
       <Box>
         <Text fontSize="2xl" fontWeight="bold">
           {titles[type]}
         </Text>
+
         <List>
-          {state.goals &&
-            state.goals.map((goal) => {
+          {state &&
+            items.map((item: IItem) => {
               return (
                 <>
-                  <ListItem type={type} data={goal} />
+                  <ListItem type={type} data={item} />
                   <br />
                 </>
               );
             })}
-          {state.goals && state.goals.length <= 4 ? (
+          {state && items.length <= 4 ? (
             <ListItem type={type} />
           ) : (
-              <Text>Those are some great { type }s!</Text>
+            <Text>Those are some great {type}s!</Text>
           )}
         </List>
       </Box>

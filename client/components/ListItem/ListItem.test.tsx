@@ -7,7 +7,7 @@ describe("ListItem", () => {
   it("it should have gratitude placeholder", () => {
     const { getByPlaceholderText } = render(
       <List>
-        <ListItem type="grat" />
+        <ListItem type="grats" />
       </List>
     );
 
@@ -17,7 +17,7 @@ describe("ListItem", () => {
   it("it should have goal placeholder", () => {
     const { getByPlaceholderText } = render(
       <List>
-        <ListItem type="goal" />
+        <ListItem type="goals" />
       </List>
     );
 
@@ -27,7 +27,7 @@ describe("ListItem", () => {
   it('should display goal data when passed to it', () => {
     const { getByText } = render(
       <List>
-        <ListItem type="goal" data={{ text: "Becoming my best self." }} />
+        <ListItem type="goals" data={{ text: "Becoming my best self." }} />
       </List>
     );
 
@@ -37,7 +37,7 @@ describe("ListItem", () => {
   it('should display gratitude data when passed to it', () => {
     const { getByText } = render(
       <List>
-        <ListItem type="grat" data={{ text: "working at a place I love." }} />
+        <ListItem type="grats" data={{ text: "working at a place I love." }} />
       </List>
     );
 

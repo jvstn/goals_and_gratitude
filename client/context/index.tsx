@@ -1,37 +1,39 @@
-import { createContext, Dispatch, ReactElement, ReactNode, useReducer } from "react";
-import { isContext } from "vm";
+import {
+  createContext,
+  Dispatch,
+  ReactNode,
+  useReducer,
+} from "react";
 import { combineReducers } from "../utils/context-utils";
-import { goalsReducer, IGoals } from "./goalsReducer";
+import { IItem, itemsReducer } from "./itemsReducer";
 import { userReducer, IAction } from "./userReducer";
 
-interface IInitialState {
+export interface IAppState {
   user?: object;
-  goals?: IGoals[];
+  goals: IItem[];
+  grats: IItem[];
 }
 
-const initialState: IInitialState = {
+const initialState: IAppState = {
   user: undefined,
-  goals: []
-}
-
-export const Context = createContext<{
-  state: IInitialState;
-  dispatch: Dispatch<IAction>;
-}>({
-  state: {}, dispatch: () => undefined
-});
-
-const combinedReducers = combineReducers(userReducer, goalsReducer);
-console.log(combineReducers(userReducer, goalsReducer));
-
-const StateProvider = ({ children }: {children: ReactNode}) => {
-  const [state, dispatch] = useReducer(combinedReducers, initialState);
-  return (
-    <Context.Provider value={{ state, dispatch }}>
-      {children}
-    </Context.Provider>
-  );
+  goals: [],
+  grats: [],
 };
 
+export const Context = createContext<{
+  state: IAppState;
+  dispatch: Dispatch<IAction>;
+}>({
+  state: initialState,
+  dispatch: () => undefined,
+});
+
+const combinedReducers = combineReducers(userReducer, itemsReducer);
+const StateProvider = ({ children }: { children: ReactNode }) => {
+  const [state, dispatch] = useReducer(combinedReducers, initialState);
+  return (
+    <Context.Provider value={{ state, dispatch }}>{children}</Context.Provider>
+  );
+};
 
 export default StateProvider;

@@ -18,6 +18,7 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import LogoutButton from "../LogoutButton";
+import { capitalize } from "../../utils/string-utils";
 
 const Links = ["login", "signup"];
 
@@ -59,7 +60,7 @@ export default function Nav() {
             >
               {Links.map((link) => (
                 <NavLink href={link} key={link}>
-                  {link.charAt(0).toUpperCase() + link.substr(1)}
+                  {capitalize(link)}
                 </NavLink>
               ))}
             </HStack>
@@ -98,7 +99,7 @@ export default function Nav() {
             <Stack as={"nav"} spacing={4}>
               {Links.map((link) => (
                 <NavLink href={link} key={link}>
-                  {link.charAt(0).toUpperCase() + link.substr(1)}
+                  {capitalize(link)}
                 </NavLink>
               ))}
             </Stack>

@@ -6,7 +6,7 @@ import ListItem from "../components/ListItem";
 import Nav from "../components/Nav";
 import Sidebar from "../components/Sidebar";
 import { Context } from "../context";
-import { IGoals } from "../context/goalsReducer";
+import { IItem } from "../context/itemsReducer";
 
 export default function dashboard(): ReactElement {
   const { state, dispatch } = useContext(Context);
@@ -18,12 +18,9 @@ export default function dashboard(): ReactElement {
             Hello, User 👋
           </Text>
           <Container>
-            <ItemList type="goal" />
+            <ItemList type="goals" />
             <Box>
-              <Text fontSize="2xl" fontWeight="bold">
-                Gratitude
-              </Text>
-              Gratitudes go here...
+              <ItemList type="grats" />
             </Box>
           </Container>
         </Container>

@@ -26,7 +26,6 @@ export default function LoginForm(): ReactElement {
     axios
       .post("/api/login", { email, password })
       .then(({ data }) => {
-        console.log(data);
         toast({
           status: "success",
           description: "Succesful login",
@@ -37,7 +36,6 @@ export default function LoginForm(): ReactElement {
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
         toast({
           status: "error",
           description: err.message,
