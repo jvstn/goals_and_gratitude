@@ -1,9 +1,9 @@
 
-import { loginTestUser } from "../login/login.test";
 import request from 'supertest'
 import { app } from "../../../app";
 import mongoose from 'mongoose'
 import { closeDb, connectDb } from "../../../utils/dbHandler";
+import { loginTestUser } from '../../../utils/testUtils';
 
 beforeAll(async () => await connectDb());
 afterAll(async () => await closeDb());
