@@ -2,9 +2,9 @@ import mongoose from 'mongoose'
 import request, { SuperAgentTest } from "supertest";
 import { app } from "../../../app";
 import { clearDb, closeDb, connectDb } from "../../../utils/dbHandler";
-import { signupTestUser, testUser } from "../signup/signup.test";
+import { testUser } from '../../../utils/testUtils';
+import { signupTestUser } from "../signup/signup.test";
 
-mongoose.disconnect();
 beforeAll(async () => await connectDb());
 afterAll(async () => await closeDb());
 
@@ -23,6 +23,5 @@ describe('Login controller', () => {
     await signupTestUser();
     const res = await loginTestUser(agent);
     expect(res.statusCode).toBe(200);
-    expect(res.body.email).toBe(email);
   });
 });

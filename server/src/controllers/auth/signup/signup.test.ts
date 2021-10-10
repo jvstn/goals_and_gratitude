@@ -2,17 +2,14 @@ import request from "supertest";
 import { app } from "../../../app";
 import { User } from "../../../models/user";
 import { clearDb, closeDb, connectDb } from "../../../utils/dbHandler";
+import { testUser } from "../../../utils/testUtils";
 
 beforeAll(async () => await connectDb());
 afterEach(async () => await clearDb());
 afterAll(async () => await closeDb());
 
 
-export const testUser = {
-  name: "testUser",
-  email: "test@email.com",
-  password: "testPassword",
-};
+
 
 export const signupTestUser = async (
   name = testUser.name,
