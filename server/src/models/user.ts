@@ -1,5 +1,6 @@
-import {model, Model, Schema} from 'mongoose'
+import {model, Schema} from 'mongoose'
 import { IUser } from '../utils/authUtils';
+import { itemSchema } from './item';
 
 const userSchema = new Schema<IUser>({
   username: String,
@@ -9,7 +10,9 @@ const userSchema = new Schema<IUser>({
     unique: true
   },
   password: String,
-  createdAt: { type: "string", default: new Date().toISOString() }
+  createdAt: { type: "string", default: new Date().toISOString() },
+  goals: [itemSchema],
+  grats: [itemSchema]
 })
 
 
