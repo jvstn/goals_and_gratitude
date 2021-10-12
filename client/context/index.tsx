@@ -9,13 +9,20 @@ import { IItem, itemsReducer } from "./itemsReducer";
 import { userReducer, IAction } from "./userReducer";
 
 export interface IAppState {
-  user?: object;
+  user: {
+    name: string,
+    email: string,
+    [otherProps: string]: any
+  };
   goals: IItem[];
   grats: IItem[];
 }
 
 const initialState: IAppState = {
-  user: undefined,
+  user: {
+    name: "",
+    email: ""
+  },
   goals: [],
   grats: [],
 };

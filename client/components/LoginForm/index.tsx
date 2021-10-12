@@ -30,7 +30,7 @@ export default function LoginForm(): ReactElement {
           status: "success",
           description: "Succesful login",
         });
-        dispatch({ type: 'SET_USER', payload: data })
+        dispatch({ type: 'SET_USER', payload: data.user })
         window.localStorage.setItem('user', JSON.stringify(data))
         router.push('/dashboard');
         setLoading(false);

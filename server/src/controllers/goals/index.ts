@@ -6,6 +6,7 @@ import { IUser } from "../../utils/authUtils";
 
 export const createGoal = async (req: Request, res: Response) => {
   try {
+    console.log('Running goals controller');  
     const { text, email } = req.body;
     const goal = await Item.create({ text });
     const user = await User.findOneAndUpdate(

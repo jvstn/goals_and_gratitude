@@ -17,7 +17,6 @@ export const signupUser = async (req: Request, res: Response) => {
     if (emailInUse)
       return res.status(400).send("Email already in use. Please login");
 
-    // can't have plain-text passwords in db
     const hashedPassword = await hashPassword(password);
     const user = await (await User.create({ name, email, password: hashedPassword })).toObject();
 
