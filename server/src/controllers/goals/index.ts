@@ -8,10 +8,10 @@ import { startOfDay, endOfDay, isBefore, isAfter } from "date-fns/fp";
 export const createGoal = async (req: Request, res: Response) => {
   try {
     console.log("Running goals controller");
-    const { text, email } = req.body;
+    const { text } = req.body;
     const goal = await Item.create({ text });
     const user = await User.findOneAndUpdate(
-      email,
+      { email: req.user.email },
       {
         $push: { goals: goal },
       },
@@ -27,9 +27,8 @@ export const createGoal = async (req: Request, res: Response) => {
 export const readGoals = async (req: Request, res: Response) => {
   try {
     const date = new Date();
-    const { email } = req.body;
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email: req.user.email });
 
     const goalsForTheDay = user.goals.filter(
       (goal) =>
