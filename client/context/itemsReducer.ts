@@ -12,6 +12,11 @@ export interface IItemState {
 
 export const itemsReducer = (state: IItemState, action: IAction) => {
   switch (action.type) {
+    case "SET_GOALS":
+      return {
+        ...state,
+        goals: action.payload
+      }
     case "ADD_GOAL":
       return {
         ...state,

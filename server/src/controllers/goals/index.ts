@@ -26,7 +26,8 @@ export const createGoal = async (req: Request, res: Response) => {
 
 export const readGoals = async (req: Request, res: Response) => {
   try {
-    const date = new Date();
+    const requestDate =  req.query.date as string;
+    const date = new Date(requestDate);
 
     const user = await User.findOne({ email: req.user.email });
 
