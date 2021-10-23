@@ -24,13 +24,13 @@ import {
 } from "react-icons/fi";
 import { IconType } from "react-icons";
 import { ReactText } from "react";
+import { firstCharLower } from "../../utils/string-utils";
 
 interface LinkItemProps {
   name: string;
   icon: IconType;
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: "Home", icon: FiHome },
   { name: "Goals", icon: FiTrendingUp },
   { name: "Gratitude", icon: FiCompass },
   { name: "Meditation", icon: FiStar },
@@ -82,15 +82,17 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       {...rest}
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Goalful
-        </Text>
+        <Link href="/" textDecoration="none">
+          <Text  fontSize="2xl" fontFamily="monospace" fontWeight="bold" textDecoration="none">
+            Goalful
+          </Text>
+        </Link>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
-          {link.name}
-        </NavItem>
+          <NavItem href={firstCharLower(link.name)} key={link.name} icon={link.icon}>
+            {link.name}
+          </NavItem>
       ))}
     </Box>
   );
@@ -99,10 +101,11 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
 interface NavItemProps extends FlexProps {
   icon: IconType;
   children: ReactText;
+  href: string;
 }
-const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
+const NavItem = ({ icon, children, href, ...rest }: NavItemProps) => {
   return (
-    <Link href="#" style={{ textDecoration: "none" }}>
+    <Link href={href} style={{ textDecoration: "none" }}>
       <Flex
         align="center"
         p="4"

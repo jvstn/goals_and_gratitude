@@ -28,13 +28,13 @@ export default function ItemList({ type }: Props): ReactElement {
             items.map((item: IItem) => {
               return (
                 <>
-                  <ListItem type={type} data={item} />
+                  <ListItem itemName={type} data={item} />
                   <br />
                 </>
               );
             })}
           {state && items.length <= 4 ? (
-            <ListItem type={type} />
+            <ListItem itemName={type} />
           ) : (
             <Text>Those are some great {type}s!</Text>
           )}

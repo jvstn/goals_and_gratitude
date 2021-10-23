@@ -1,10 +1,12 @@
 import { IAction } from "./userReducer";
+import {add, sub} from 'date-fns'
 
 export interface IItem {
   text: string;
 }
 
 export interface IItemState {
+  dayToView: Date;
   goals: IItem[];
   grats: IItem[];
 }
@@ -12,6 +14,18 @@ export interface IItemState {
 
 export const itemsReducer = (state: IItemState, action: IAction) => {
   switch (action.type) {
+    case "NEXT_DAY":
+      const nextDay = add(state.dayToView, { days: 1})
+      return {
+        ...state,
+        dayToView: nextDay
+      }
+    case "LAST_DAY":
+      const lastDay = sub(state.dayToView, { days: 1})
+      return {
+        ...state,
+        dayToView: lastDay
+      }
     case "SET_GOALS":
       return {
         ...state,

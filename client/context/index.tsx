@@ -14,6 +14,7 @@ export interface IAppState {
     email: string,
     [otherProps: string]: any
   };
+  dayToView: Date;
   goals: IItem[];
   grats: IItem[];
 }
@@ -23,6 +24,7 @@ const initialState: IAppState = {
     name: "",
     email: ""
   },
+  dayToView: new Date(),
   goals: [],
   grats: [],
 };

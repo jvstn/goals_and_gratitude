@@ -26,16 +26,14 @@ export const createGoal = async (req: Request, res: Response) => {
 
 export const readGoals = async (req: Request, res: Response) => {
   try {
-    const requestDate =  req.query.date as string;
+
+    const requestDate = req.query.date as string;
     const date = new Date(requestDate);
-
     const user = await User.findOne({ email: req.user.email });
-
     const goalsForTheDay = user.goals.filter(
       (goal) =>
         isBefore(goal.createdAt, startOfDay(date)) && isAfter(endOfDay(date))
     );
-
     res.status(200).json(goalsForTheDay);
   } catch (err) {
     console.log(err);

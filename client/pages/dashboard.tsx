@@ -12,13 +12,12 @@ import { IItem } from "../context/itemsReducer";
 export default function dashboard(): ReactElement {
   const { state, dispatch } = useContext(Context);
   useEffect(() => {
-    axios.get('/api/goals', { params: { date: new Date().toISOString() } })
+    axios.get('/api/goals', { params: { date: state.dayToView.toISOString() } })
       .then(({ data }) => {
         console.log(data);
         dispatch({ type: "SET_GOALS", payload: data });
       }).catch((err) => {
         console.log(err);
-        
     })
     
   }, [])
