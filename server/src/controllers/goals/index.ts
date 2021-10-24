@@ -1,8 +1,6 @@
 import { Request, Response } from "express";
-import { NativeError } from "mongoose";
-import { IItem, Item } from "../../models/item";
+import { Item } from "../../models/item";
 import { User } from "../../models/user";
-import { IUser } from "../../utils/authUtils";
 import { startOfDay, endOfDay, isBefore, isAfter } from "date-fns/fp";
 
 export const createGoal = async (req: Request, res: Response) => {
@@ -26,7 +24,6 @@ export const createGoal = async (req: Request, res: Response) => {
 
 export const readGoals = async (req: Request, res: Response) => {
   try {
-
     const requestDate = req.query.date as string;
     const date = new Date(requestDate);
     const user = await User.findOne({ email: req.user.email });
@@ -35,6 +32,37 @@ export const readGoals = async (req: Request, res: Response) => {
         isBefore(goal.createdAt, startOfDay(date)) && isAfter(endOfDay(date))
     );
     res.status(200).json(goalsForTheDay);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Something went wrong. Please try again later");
+  }
+};
+
+// export const updateGoal =  (req: Request, res: Response) => {
+//   try {
+//     const { _id, text } = req.body;
+//     const user = await User.findOne({ email: req.user.email })
+
+//   } catch (err) {
+//     console.log(err);
+
+//   }
+
+// }
+
+export const updateGoal = async (req: Request, res: Response) => {
+  try {
+    const { _id, text } = req.body;
+    const user = await User.findOneAndUpdate(
+      { email: req.user.email, "goals._id": _id },
+      { $set: { "goals.$.text": text } },
+      { new: true }
+    );
+    if (!user) {
+      return res.status(404).send("Goal not found");
+    }
+    console.log(user);
+    res.json(user);
   } catch (err) {
     console.log(err);
     res.status(500).send("Something went wrong. Please try again later");

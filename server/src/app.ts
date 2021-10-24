@@ -18,7 +18,6 @@ mongoose
   .connect(process.env.MONGODB_URL)
   .then(() => console.log("Db connected", process.env.MONGODB_URL))
   .catch(() => console.log("Failed to connect to db"));
-console.log();
 
 readdirSync("./src/routes").map((route: string) => {
   app.use("/api", require(`./routes/${route}`));
