@@ -34,49 +34,52 @@ export default function ListItem({
   index,
 }: Props): ReactElement {
   const { state, dispatch } = useContext(Context);
-  const [edit, setEdit] = useState(false);
+  const [editing, setEditing] = useState(false);
   const toast = useToast();
-
+  console.log(editing);
   const handleEnter = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      if (edit) {
+      if (editing && index !== undefined) {
         dispatch({
           type: `UPDATE_${makeSingularandCapitalize(itemName)}`,
           payload: { text: e.currentTarget.value, idx: index },
         });
+        axios.put(`/api/${itemName}`, { text: e.currentTarget.value, _id: state.goals[index]._id })
+          .then(({ data }) => { console.log(data) })
+          .catch(err => { console.log(err) });
+        setEditing(false);
       } else {
         dispatch({
           type: `ADD_${makeSingularandCapitalize(itemName)}`,
           payload: { text: e.currentTarget.value, idx: index },
         });
+        axios
+          .post(`api/${itemName}`, {
+            text: e.currentTarget.value,
+            email: state.user.email,
+          })
+          .then(() => {
+            toast({
+              status: "success",
+              description: `Added new ${itemName}`,
+            });
+          })
+          .catch((err) => {
+            console.log(err);
+
+            toast({
+              status: "error",
+              description: `Failed to add ${itemName}`,
+            });
+          });
       }
-
-      axios
-        .post(`api/${itemName}`, {
-          text: e.currentTarget.value,
-          email: state.user.email,
-        })
-        .then(() => {
-          toast({
-            status: "success",
-            description: `Added new ${itemName}`,
-          });
-        })
-        .catch((err) => {
-          console.log(err);
-
-          toast({
-            status: "error",
-            description: `Failed to add ${itemName}`,
-          });
-        });
-      setEdit(false);
     }
   };
 
   const handleEdit = () => {
-    setEdit(true);
+    setEditing(true);
   };
+  
   return (
     <div>
       <Item
@@ -87,7 +90,7 @@ export default function ListItem({
         onClick={handleEdit}
       >
         <Center>
-          {!data?.text || edit ? (
+          {!data?.text || editing ? (
             <Input
               placeholder={fillerText[itemName] + "..."}
               variant="unstyled"

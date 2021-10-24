@@ -3,6 +3,8 @@ import {add, sub} from 'date-fns'
 
 export interface IItem {
   text: string;
+  _id?: number;
+  createdAt?: Date;
 }
 
 export interface IItemState {
