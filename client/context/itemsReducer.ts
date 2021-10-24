@@ -37,10 +37,9 @@ export const itemsReducer = (state: IItemState, action: IAction) => {
         goals: state.goals.concat(action.payload),
       };
     case "UPDATE_GOAL":
-      const goalToUpdate = state.goals.indexOf(action.payload);
+      state.goals[action.payload.idx].text = action.payload.text;
       return {
         ...state,
-        goals: (state.goals[goalToUpdate] = action.payload),
       };
     case "REMOVE_GOAL":
       const goalToRemove = state.goals.indexOf(action.payload);

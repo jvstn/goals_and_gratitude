@@ -25,10 +25,10 @@ export default function ItemList({ type }: Props): ReactElement {
 
         <List>
           {state &&
-            items.map((item: IItem) => {
+            items.map((item: IItem, index) => {
               return (
                 <>
-                  <ListItem itemName={type} data={item} />
+                  <ListItem key={index} itemName={type} data={item} index={index} />
                   <br />
                 </>
               );

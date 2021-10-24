@@ -24,12 +24,13 @@ describe("Goal controller", () => {
   });
 
   it("should read this goal", async () => {
+    const date = new Date().toISOString();
     await signupTestUser(agent);
     await loginTestUser(agent);
     await agent
       .post("/api/goals")
-      .send({ text: "being my best", email: testUser.email });
-    const res = await agent.get("/api/goals").send({ email: testUser.email });
+      .send({ text: "being my best"});
+    const res = await agent.get(`/api/goals?date=${date}`);
     expect(res.body[0].text).toBe("being my best");
   });
 
