@@ -1,5 +1,5 @@
 import { IAction } from "./userReducer";
-import {add, sub} from 'date-fns'
+import { add, sub } from "date-fns";
 
 export interface IItem {
   text: string;
@@ -13,26 +13,25 @@ export interface IItemState {
   grats: IItem[];
 }
 
-
 export const itemsReducer = (state: IItemState, action: IAction) => {
   switch (action.type) {
     case "NEXT_DAY":
-      const nextDay = add(state.dayToView, { days: 1})
+      const nextDay = add(state.dayToView, { days: 1 });
       return {
         ...state,
-        dayToView: nextDay
-      }
+        dayToView: nextDay,
+      };
     case "LAST_DAY":
-      const lastDay = sub(state.dayToView, { days: 1})
+      const lastDay = sub(state.dayToView, { days: 1 });
       return {
         ...state,
-        dayToView: lastDay
-      }
+        dayToView: lastDay,
+      };
     case "SET_GOALS":
       return {
         ...state,
-        goals: action.payload
-      }
+        goals: action.payload,
+      };
     case "ADD_GOAL":
       return {
         ...state,
@@ -43,18 +42,20 @@ export const itemsReducer = (state: IItemState, action: IAction) => {
       return {
         ...state,
       };
-    case "REMOVE_GOAL":
-      const goalToRemove = state.goals.indexOf(action.payload);
+    case "DELETE_GOAL":
+      
       return {
         ...state,
-        goals: state.goals.splice(goalToRemove),
+        goals: [
+          ...state.goals.slice(0, action.payload.idx), ...state.goals.slice(action.payload.idx + 1)
+        ]
       };
     case "ADD_GRAT":
       return {
         ...state,
         grats: state.grats.concat(action.payload),
       };
-    case "REMOVE_GRAT":
+    case "DELETE_GRAT":
       let gratToRemove = state.grats.indexOf(action.payload);
       return {
         ...state,
@@ -69,4 +70,4 @@ export const itemsReducer = (state: IItemState, action: IAction) => {
     default:
       return state;
   }
-}
+};

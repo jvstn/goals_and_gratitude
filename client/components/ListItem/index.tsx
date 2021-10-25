@@ -1,5 +1,7 @@
+import Icon from "@chakra-ui/icon";
+import { DeleteIcon } from "@chakra-ui/icons";
 import { Input } from "@chakra-ui/input";
-import { Box, Center, Text, ListItem as Item } from "@chakra-ui/layout";
+import { Box, Center, Text, ListItem as Item, Flex } from "@chakra-ui/layout";
 import { useToast } from "@chakra-ui/toast";
 import axios from "axios";
 import React, {
@@ -36,7 +38,6 @@ export default function ListItem({
   const { state, dispatch } = useContext(Context);
   const [editing, setEditing] = useState(false);
   const toast = useToast();
-  console.log(editing);
   const handleEnter = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       if (editing && index !== undefined) {
@@ -79,16 +80,15 @@ export default function ListItem({
   const handleEdit = () => {
     setEditing(true);
   };
+
+  const handleDelete = () => {
+    dispatch({ type: `DELETE_${makeSingularandCapitalize(itemName)}`, payload: { idx: index } });
+    // index && axios.delete(`/api/${itemName}/${state.goals[index]._id}`);
+  };
   
   return (
     <div>
-      <Item
-        boxShadow="dark-lg"
-        borderRadius="lg"
-        height="min-content"
-        p="2"
-        onClick={handleEdit}
-      >
+      <Item boxShadow="dark-lg" borderRadius="lg" height="min-content" p="2">
         <Center>
           {!data?.text || editing ? (
             <Input
@@ -98,9 +98,21 @@ export default function ListItem({
               name={itemName}
             />
           ) : (
-            <Text>
-              {fillerText[itemName] + " " + firstCharLower(data?.text)}
-            </Text>
+              <>
+            <Center>
+              <Box width="15vw">
+                <Text onClick={handleEdit}>
+                  {fillerText[itemName] + " " + firstCharLower(data?.text)}
+                </Text>
+              </Box>
+            </Center>
+              <DeleteIcon
+                onClick={handleDelete}
+                cursor="pointer"
+                color="red.300"
+                marginLeft="1rem"
+              />
+              </>
           )}
         </Center>
       </Item>
