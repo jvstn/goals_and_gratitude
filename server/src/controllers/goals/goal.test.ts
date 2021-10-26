@@ -38,9 +38,21 @@ describe("Goal controller", () => {
     const postRes = await agent.post("/api/goals").send({ text: "being my best" });
     const goalId = postRes.body[0]._id;
     const putRes = await agent.put("/api/goals").send({ text: "always being my best", _id: goalId });
-    console.log("put response",putRes.body);
     const getRes = await agent.get(`/api/goals?date=${new Date().toISOString()}`);
-    console.log("get response",getRes.body);
     expect(getRes.body[0].text).toBe("always being my best");
+  });
+
+
+  it("should delete a goal", async () => {
+    await signupTestUser(agent);
+    await loginTestUser(agent);
+    await agent.post("/api/goals").send({ text: "being my best" });
+    const user = await User.findOne({ email: testUser.email });
+    const goal = user.goals.find((item) => item.text === "being my best");
+    const {_id} = goal;
+    expect(user.goals.find((item) => item.text === "being my best")).toBeTruthy();
+    await agent.delete("/api/goals").send({ _id });
+    const res = await agent.get(`/api/goals?date=${new Date().toISOString()}`);
+    expect(res.body.length).toBe(0);
   });
 });

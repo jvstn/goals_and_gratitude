@@ -57,14 +57,32 @@ export const updateGoal = async (req: Request, res: Response) => {
       { email: req.user.email, "goals._id": _id },
       { $set: { "goals.$.text": text } },
       { new: true }
-    );
-    if (!user) {
-      return res.status(404).send("Goal not found");
-    }
-    console.log(user);
-    res.json(user);
+    ).catch((err) => {
+      console.log(err);
+      res.status(404).send("Goal not found");
+    });
+    
+    user && res.json(user.goals);
   } catch (err) {
     console.log(err);
     res.status(500).send("Something went wrong. Please try again later");
   }
 };
+
+export const deleteGoal = async (req: Request, res: Response) => {
+  try {
+    const { _id } = req.body;
+    const user = await User.findOneAndUpdate(
+      { email: req.user.email },
+      { $pull: { goals: { _id } } },
+      { new: true }
+    ).catch((err) => {
+      console.log(err);
+      res.status(404).send("Goal not found");
+    });
+    user && res.json(user.goals);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Something went wrong. Please try again later");
+  }
+}
