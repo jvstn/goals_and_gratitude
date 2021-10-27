@@ -2,20 +2,21 @@ import { Request, Response } from "express";
 import { Item } from "../../models/item";
 import { User } from "../../models/user";
 import { startOfDay, endOfDay, isBefore, isAfter } from "date-fns/fp";
+import { get } from "http";
 
-export const createGoal = async (req: Request, res: Response) => {
+export const createAffirmation = async (req: Request, res: Response) => {
   try {
-    console.log("Running goals controller");
+    const affirmationType = req.url.split("/")[1];
     const { text } = req.body;
-    const goal = await Item.create({ text });
-    const user = await User.findOneAndUpdate(
+    const affirmation = await Item.create({ text });
+    await User.findOneAndUpdate(
       { email: req.user.email },
       {
-        $push: { goals: goal },
+        $push: { [affirmationType]: affirmation },
       },
       { new: true }
     );
-    res.json(goal);
+    res.json(affirmation);
   } catch (err) {
     console.log(err);
   }

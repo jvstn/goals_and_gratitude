@@ -10,7 +10,8 @@ beforeAll(async () => await connectDb());
 afterEach(async () => await clearDb());
 afterAll(async () => await closeDb());
 
-describe("Goal controller", () => {
+describe("Affirmation controller", () => {
+  // Goal tests
   it("should create a goal", async () => {
     await signupTestUser(agent);
     await loginTestUser(agent);
@@ -54,5 +55,18 @@ describe("Goal controller", () => {
     await agent.delete("/api/goals").send({ _id });
     const res = await agent.get(`/api/goals?date=${new Date().toISOString()}`);
     expect(res.body.length).toBe(0);
+  });
+
+  // Grats tests
+  it("should create a gratitude affirmation", async () => {
+    await signupTestUser(agent);
+    await loginTestUser(agent);
+    await agent
+      .post("/api/grats")
+      .send({ text: "being my best", email: testUser.email });
+    const user = await User.findOne({ email: testUser.email });
+    expect(
+      user.grats.find((item) => item.text === "being my best")
+    ).toBeTruthy();
   });
 });
