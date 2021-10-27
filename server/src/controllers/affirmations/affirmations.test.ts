@@ -58,7 +58,7 @@ describe("Affirmation controller", () => {
   });
 
   // Grats tests
-  it("should create a gratitude affirmation", async () => {
+  it("should create a grat", async () => {
     await signupTestUser(agent);
     await loginTestUser(agent);
     await agent
@@ -68,5 +68,14 @@ describe("Affirmation controller", () => {
     expect(
       user.grats.find((item) => item.text === "being my best")
     ).toBeTruthy();
+  });
+
+  it("should read this grat", async () => {
+    const date = new Date().toISOString();
+    await signupTestUser(agent);
+    await loginTestUser(agent);
+    await agent.post("/api/grats").send({ text: "being my best" });
+    const res = await agent.get(`/api/grats?date=${date}`);
+    expect(res.body[0].text).toBe("being my best");
   });
 });
