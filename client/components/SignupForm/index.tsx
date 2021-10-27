@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useContext, useState } from 'react'
 
 import {
   Box,
@@ -13,6 +13,8 @@ import {
   useToast
 } from "@chakra-ui/react";
 import axios from 'axios';
+import { Context } from '../../context';
+import router from 'next/router';
 
 
 
@@ -21,6 +23,7 @@ export default function SignupForm(): ReactElement {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const { dispatch } = useContext(Context);
   const toast = useToast();
 
   const handleSumbit = () => {
@@ -32,10 +35,13 @@ export default function SignupForm(): ReactElement {
     })
       .then(({data}: any) => {
         setLoading(false)
+        dispatch({ type: "SET_USER", payload: data.user });
+        window.localStorage.setItem('user', data.user);
         toast({
           status: "success",
           description: data.message,
         })
+        router.push('/dashboard');
       })
       .catch((err) => {
         setLoading(false)

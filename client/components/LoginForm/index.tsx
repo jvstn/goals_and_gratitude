@@ -26,18 +26,16 @@ export default function LoginForm(): ReactElement {
     axios
       .post("/api/login", { email, password })
       .then(({ data }) => {
-        console.log(data);
         toast({
           status: "success",
           description: "Succesful login",
         });
-        dispatch({ type: 'SET_USER', payload: data })
+        dispatch({ type: 'SET_USER', payload: data.user })
         window.localStorage.setItem('user', JSON.stringify(data))
         router.push('/dashboard');
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
         toast({
           status: "error",
           description: err.message,

@@ -11,7 +11,7 @@ app.prepare().then(() => {
   const server = express();
   if (dev) {
     server.use('/api', createProxyMiddleware({
-      target: 'http://localhost:5000',
+      target: 'http://localhost:5500',
       changeOrigin: true
     }));
   }
