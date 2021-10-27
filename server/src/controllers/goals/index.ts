@@ -15,8 +15,7 @@ export const createGoal = async (req: Request, res: Response) => {
       },
       { new: true }
     );
-    const goals = user.goals;
-    res.json(goals);
+    res.json(goal);
   } catch (err) {
     console.log(err);
   }

@@ -36,7 +36,7 @@ describe("Goal controller", () => {
     await signupTestUser(agent);
     await loginTestUser(agent);
     const postRes = await agent.post("/api/goals").send({ text: "being my best" });
-    const goalId = postRes.body[0]._id;
+    const goalId = postRes.body._id;
     const putRes = await agent.put("/api/goals").send({ text: "always being my best", _id: goalId });
     const getRes = await agent.get(`/api/goals?date=${new Date().toISOString()}`);
     expect(getRes.body[0].text).toBe("always being my best");

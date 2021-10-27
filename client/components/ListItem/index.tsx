@@ -11,18 +11,15 @@ import React, {
   useState,
 } from "react";
 import { Context } from "../../context";
+import { IItem } from "../../context/itemsReducer";
 import {
   firstCharLower,
   makeSingularandCapitalize,
 } from "../../utils/string-utils";
 
-interface ItemData {
-  text: string;
-}
-
 interface Props {
   itemName: "goals" | "grats";
-  data?: ItemData;
+  data?: IItem;
   index?: number;
 }
 const fillerText = {
@@ -45,24 +42,33 @@ export default function ListItem({
           type: `UPDATE_${makeSingularandCapitalize(itemName)}`,
           payload: { text: e.currentTarget.value, idx: index },
         });
-        axios.put(`/api/${itemName}`, { text: e.currentTarget.value, _id: state.goals[index]._id })
-          .then(({ data }) => { console.log(data) })
-          .catch(err => { console.log(err) });
+        axios
+          .put(`/api/${itemName}`, {
+            text: e.currentTarget.value,
+            _id: data?._id,
+          })
+          .then(({ data }) => {
+            console.log(data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
         setEditing(false);
       } else {
-        dispatch({
-          type: `ADD_${makeSingularandCapitalize(itemName)}`,
-          payload: { text: e.currentTarget.value, idx: index },
-        });
+        
         axios
           .post(`api/${itemName}`, {
             text: e.currentTarget.value,
             email: state.user.email,
           })
-          .then(() => {
+          .then(({ data }) => {
             toast({
               status: "success",
               description: `Added new ${itemName}`,
+            });
+            dispatch({
+              type: `ADD_${makeSingularandCapitalize(itemName)}`,
+              payload: data,
             });
           })
           .catch((err) => {
@@ -76,16 +82,35 @@ export default function ListItem({
       }
     }
   };
-
   const handleEdit = () => {
     setEditing(true);
   };
 
   const handleDelete = () => {
-    dispatch({ type: `DELETE_${makeSingularandCapitalize(itemName)}`, payload: { idx: index } });
-    // index && axios.delete(`/api/${itemName}/${state.goals[index]._id}`);
+    dispatch({
+      type: `DELETE_${makeSingularandCapitalize(itemName)}`,
+      payload: { idx: index },
+    });
+    index !== undefined &&
+      axios
+        .delete(`/api/${itemName}`, {
+          data: { _id: state.goals[index]._id },
+        })
+        .then(({ data }) => {
+          toast({
+            status: "success",
+            description: `Deleted ${itemName}`,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          toast({
+            status: "error",
+            description: `Failed to delete ${itemName}`,
+          });
+        });
   };
-  
+  index && console.log(state.goals[index]._id);
   return (
     <div>
       <Item boxShadow="dark-lg" borderRadius="lg" height="min-content" p="2">
@@ -98,21 +123,21 @@ export default function ListItem({
               name={itemName}
             />
           ) : (
-              <>
-            <Center>
-              <Box width="15vw">
-                <Text onClick={handleEdit}>
-                  {fillerText[itemName] + " " + firstCharLower(data?.text)}
-                </Text>
-              </Box>
-            </Center>
+            <>
+              <Center>
+                <Box width="15vw">
+                  <Text onClick={handleEdit}>
+                    {fillerText[itemName] + " " + firstCharLower(data?.text)}
+                  </Text>
+                </Box>
+              </Center>
               <DeleteIcon
                 onClick={handleDelete}
                 cursor="pointer"
                 color="red.300"
                 marginLeft="1rem"
               />
-              </>
+            </>
           )}
         </Center>
       </Item>

@@ -14,7 +14,7 @@ export default function ItemList({ type }: Props): ReactElement {
     grats: "Gratitudes"
   }
   const { state } = useContext(Context);
-  const items = state && state[type];
+  const items = state[type];
   
   return (
     <div>
