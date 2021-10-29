@@ -1,16 +1,16 @@
 import { NextPage } from 'next'
 import React from 'react'
+import Hero from '../components/landing/Hero'
 import Nav from '../components/Nav'
-import WithSubnavigation from '../components/Nav'
 
 
-const Home: NextPage = () => {
+const LandingPage: NextPage = () => {
   return (
     <div>
       <Nav />
-      Hello world;
+      <Hero />
     </div>
   )
 }
 
-export default Home
+export default LandingPage
