@@ -12,15 +12,24 @@ import { IItem } from "../context/itemsReducer";
 export default function dashboard(): ReactElement {
   const { state, dispatch } = useContext(Context);
   useEffect(() => {
-    axios.get('/api/goals', { params: { date: state.dayToView.toISOString() } })
+    axios
+      .get("/api/goals", { params: { date: state.dayToView.toISOString() } })
       .then(({ data }) => {
-        console.log(data);
         dispatch({ type: "SET_GOALS", payload: data });
-      }).catch((err) => {
+      })
+      .catch((err) => {
         console.log(err);
-    })
-    
-  }, [])
+      });
+
+    axios
+      .get("/api/grats", { params: { date: state.dayToView.toISOString() } })
+      .then(({ data }) => {
+        dispatch({ type: "SET_GRATS", payload: data });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <div>
       <Sidebar>
