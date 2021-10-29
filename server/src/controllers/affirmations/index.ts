@@ -42,19 +42,22 @@ export const readAffirmations = async (req: Request, res: Response) => {
 };
 
 
-export const updateGoal = async (req: Request, res: Response) => {
+export const updateAffirmation = async (req: Request, res: Response) => {
   try {
+    const affirmationType = req.url.substr(1, 5) as ItemNames;
     const { _id, text } = req.body;
+    const affirmationId = `${affirmationType}._id`;
+    const affirmationProp = `${affirmationType}.$.text`;
     const user = await User.findOneAndUpdate(
-      { email: req.user.email, "goals._id": _id },
-      { $set: { "goals.$.text": text } },
+      { email: req.user.email, [affirmationId]: _id },
+      { $set: { [affirmationProp]: text } },
       { new: true }
     ).catch((err) => {
       console.log(err);
-      res.status(404).send("Goal not found");
+      res.status(404).send(`${affirmationType} not found`);
     });
     
-    user && res.json(user.goals);
+    user && res.json(user[affirmationType]);
   } catch (err) {
     console.log(err);
     res.status(500).send("Something went wrong. Please try again later");

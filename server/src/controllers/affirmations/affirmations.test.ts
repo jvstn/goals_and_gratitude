@@ -36,13 +36,18 @@ describe("Affirmation controller", () => {
   it("should update a goal", async () => {
     await signupTestUser(agent);
     await loginTestUser(agent);
-    const postRes = await agent.post("/api/goals").send({ text: "being my best" });
+    const postRes = await agent
+      .post("/api/goals")
+      .send({ text: "being my best" });
     const goalId = postRes.body._id;
-    const putRes = await agent.put("/api/goals").send({ text: "always being my best", _id: goalId });
-    const getRes = await agent.get(`/api/goals?date=${new Date().toISOString()}`);
+    const putRes = await agent
+      .put("/api/goals")
+      .send({ text: "always being my best", _id: goalId });
+    const getRes = await agent.get(
+      `/api/goals?date=${new Date().toISOString()}`
+    );
     expect(getRes.body[0].text).toBe("always being my best");
   });
-
 
   it("should delete a goal", async () => {
     await signupTestUser(agent);
@@ -50,8 +55,10 @@ describe("Affirmation controller", () => {
     await agent.post("/api/goals").send({ text: "being my best" });
     const user = await User.findOne({ email: testUser.email });
     const goal = user.goals.find((item) => item.text === "being my best");
-    const {_id} = goal;
-    expect(user.goals.find((item) => item.text === "being my best")).toBeTruthy();
+    const { _id } = goal;
+    expect(
+      user.goals.find((item) => item.text === "being my best")
+    ).toBeTruthy();
     await agent.delete("/api/goals").send({ _id });
     const res = await agent.get(`/api/goals?date=${new Date().toISOString()}`);
     expect(res.body.length).toBe(0);
@@ -77,5 +84,21 @@ describe("Affirmation controller", () => {
     await agent.post("/api/grats").send({ text: "being my best" });
     const res = await agent.get(`/api/grats?date=${date}`);
     expect(res.body[0].text).toBe("being my best");
+  });
+
+  it("should update a grat", async () => {
+    await signupTestUser(agent);
+    await loginTestUser(agent);
+    const postRes = await agent
+      .post("/api/grats")
+      .send({ text: "being my best" });
+    const gratId = postRes.body._id;
+    await agent
+      .put("/api/grats")
+      .send({ text: "always being my best", _id: gratId });
+    const getRes = await agent.get(
+      `/api/grats?date=${new Date().toISOString()}`
+    );
+    expect(getRes.body[0].text).toBe("always being my best");
   });
 });
