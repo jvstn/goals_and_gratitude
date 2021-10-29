@@ -43,12 +43,17 @@ export const itemsReducer = (state: IItemState, action: IAction) => {
         ...state,
       };
     case "DELETE_GOAL":
-      
       return {
         ...state,
         goals: [
-          ...state.goals.slice(0, action.payload.idx), ...state.goals.slice(action.payload.idx + 1)
-        ]
+          ...state.goals.slice(0, action.payload.idx),
+          ...state.goals.slice(action.payload.idx + 1),
+        ],
+      };
+    case "SET_GRATS":
+      return {
+        ...state,
+        grats: action.payload,
       };
     case "ADD_GRAT":
       return {
@@ -56,16 +61,17 @@ export const itemsReducer = (state: IItemState, action: IAction) => {
         grats: state.grats.concat(action.payload),
       };
     case "DELETE_GRAT":
-      let gratToRemove = state.grats.indexOf(action.payload);
       return {
         ...state,
-        grats: state.grats.splice(gratToRemove),
+        grats: [
+          ...state.grats.slice(0, action.payload.idx),
+          ...state.grats.slice(action.payload.idx + 1),
+        ],
       };
     case "UPDATE_GRAT":
-      let gratToUpdate = state.grats.indexOf(action.payload);
+      state.grats[action.payload.idx].text = action.payload.text;
       return {
         ...state,
-        grats: (state.grats[gratToUpdate] = action.payload),
       };
     default:
       return state;

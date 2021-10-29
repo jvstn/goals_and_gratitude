@@ -73,7 +73,6 @@ export default function ListItem({
           })
           .catch((err) => {
             console.log(err);
-
             toast({
               status: "error",
               description: `Failed to add ${itemName}`,
@@ -94,7 +93,7 @@ export default function ListItem({
     index !== undefined &&
       axios
         .delete(`/api/${itemName}`, {
-          data: { _id: state.goals[index]._id },
+          data: { _id: state[itemName][index]._id },
         })
         .then(({ data }) => {
           toast({
@@ -110,7 +109,6 @@ export default function ListItem({
           });
         });
   };
-  index && console.log(state.goals[index]._id);
   return (
     <div>
       <Item boxShadow="dark-lg" borderRadius="lg" height="min-content" p="2">

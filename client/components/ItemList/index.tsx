@@ -24,7 +24,7 @@ export default function ItemList({ type }: Props): ReactElement {
         </Text>
 
         <List>
-          {state &&
+          {state[type] &&
             items.map((item: IItem, index) => {
               return (
                 <>
@@ -33,7 +33,7 @@ export default function ItemList({ type }: Props): ReactElement {
                 </>
               );
             })}
-          {state && items.length <= 4 ? (
+          {state[type] && items.length <= 4 ? (
             <ListItem itemName={type} />
           ) : (
             <Text>Those are some great {type}s!</Text>

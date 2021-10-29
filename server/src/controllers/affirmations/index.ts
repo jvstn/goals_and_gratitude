@@ -34,6 +34,7 @@ export const readAffirmations = async (req: Request, res: Response) => {
       (affirmation) =>
         isBefore(affirmation.createdAt, startOfDay(date)) && isAfter(endOfDay(date))
     );
+    console.log(affirmationsForTheDay);
     res.status(200).json(affirmationsForTheDay);
   } catch (err) {
     console.log(err);
