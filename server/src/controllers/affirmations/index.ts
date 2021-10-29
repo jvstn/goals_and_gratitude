@@ -64,18 +64,19 @@ export const updateAffirmation = async (req: Request, res: Response) => {
   }
 };
 
-export const deleteGoal = async (req: Request, res: Response) => {
+export const deleteAffirmation = async (req: Request, res: Response) => {
   try {
+    const affirmationType = req.url.substr(1, 5) as ItemNames;
     const { _id } = req.body;
     const user = await User.findOneAndUpdate(
       { email: req.user.email },
-      { $pull: { goals: { _id } } },
+      { $pull: { [affirmationType]: { _id } } },
       { new: true }
     ).catch((err) => {
       console.log(err);
-      res.status(404).send("Goal not found");
+      res.status(404).send(`${affirmationType} not found`);
     });
-    user && res.json(user.goals);
+    user && res.json(user[affirmationType]);
   } catch (err) {
     console.log(err);
     res.status(500).send("Something went wrong. Please try again later");

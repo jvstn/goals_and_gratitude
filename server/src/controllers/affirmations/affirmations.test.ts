@@ -101,4 +101,21 @@ describe("Affirmation controller", () => {
     );
     expect(getRes.body[0].text).toBe("always being my best");
   });
+
+  it("should delete a grat", async () => {
+    await signupTestUser(agent);
+    await loginTestUser(agent);
+    const postRes = await agent
+      .post("/api/grats")
+      .send({ text: "being my best" });
+    const user = await User.findOne({ email: testUser.email });
+    const grat = user.grats.find((item) => item.text === "being my best");
+    const { _id } = postRes.body;
+    expect(
+      user.grats.find((item) => item.text === "being my best")
+    ).toBeTruthy();
+    await agent.delete("/api/grats").send({ _id });
+    const res = await agent.get(`/api/grats?date=${new Date().toISOString()}`);
+    expect(res.body.length).toBe(0);
+  });
 });
