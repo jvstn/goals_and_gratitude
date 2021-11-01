@@ -6,7 +6,7 @@ import React, { ReactElement } from 'react'
 export default function SignupButton(): ReactElement {
   return (
     <Link href={"/signup"}>
-      <Button colorScheme={"purple"}>Signup</Button>
+      <Button colorScheme={"purple"}>Sign Up</Button>
     </Link>
   );
 }
