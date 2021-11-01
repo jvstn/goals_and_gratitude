@@ -14,7 +14,7 @@ import { TestimonialAvatar, TestimonialContent, TestimonialHeading, TestimonialT
 
 export default function TestimonialSection() {
   return (
-    <Box bg={useColorModeValue("gray.100", "gray.700")}>
+    <Box id={"testimonial"} bg={useColorModeValue("gray.100", "gray.700")}>
       <Container maxW={"7xl"} py={16} as={Stack} spacing={12}>
         <Stack spacing={0} align={"center"}>
           <Heading>Our Clients Speak</Heading>

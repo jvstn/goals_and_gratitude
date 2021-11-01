@@ -15,15 +15,16 @@ export default function Hero() {
           as={Box}
           textAlign={"center"}
           spacing={{ base: 8, md: 14 }}
-          py={{ base: 20, md: 36 }}
+          py={{ base: 10, md: 24 }}
         >
           <Heading
             fontWeight={600}
             fontSize={{ base: "2xl", sm: "4xl", md: "6xl" }}
             lineHeight={"110%"}
           >
-            Stay Focused And<br />
-            <Text as={"span"} color={"green.400"}>
+            Stay Focused And
+            <br />
+            <Text as={"span"} color={"purple.400"}>
               Stay Happy.
             </Text>
           </Heading>
@@ -38,12 +39,12 @@ export default function Hero() {
             position={"relative"}
           >
             <Button
-              colorScheme={"green"}
-              bg={"green.400"}
+              colorScheme={"purple"}
+              bg={"purple.400"}
               rounded={"full"}
               px={6}
               _hover={{
-                bg: "green.500",
+                bg: "purple.500",
               }}
             >
               Get Started
