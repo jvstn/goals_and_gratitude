@@ -1,4 +1,3 @@
-import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { ChakraProvider } from "@chakra-ui/react";
 import StateProvider from "../context";
@@ -9,7 +8,7 @@ axios.defaults.baseURL = process.env.BASE_URL;
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <StateProvider>
-      <ChakraProvider>
+      <ChakraProvider >
         <Component {...pageProps} />
       </ChakraProvider>
     </StateProvider>
