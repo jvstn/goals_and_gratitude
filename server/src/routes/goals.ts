@@ -9,4 +9,4 @@ router.get("/goals", checkAuth, readAffirmations);
 router.put("/goals", checkAuth, updateAffirmation);
 router.delete("/goals", checkAuth, deleteAffirmation);
 
-module.exports = router;
+export default router;

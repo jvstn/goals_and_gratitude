@@ -1,5 +1,8 @@
 import express, { Request, Response } from "express";
 import { readdir, readdirSync } from "fs";
+import authRouter from './routes/auth'
+import goalsRouter from './routes/goals'
+import gratsRouter from './routes/grats'
 import mongoose from "mongoose";
 import cors from "cors";
 import morgan from "morgan";
@@ -19,8 +22,8 @@ mongoose
   .then(() => console.log("Db connected", process.env.MONGODB_URL))
   .catch(() => console.log("Failed to connect to db"));
 
-readdirSync("./src/routes").map((route: string) => {
-  app.use("/api", require(`./routes/${route}`));
-});
+app.use("/api", authRouter);
+app.use("/api", goalsRouter);
+app.use("/api", gratsRouter);
 
 //Listen in server.ts file so supertest can call its own instance of app

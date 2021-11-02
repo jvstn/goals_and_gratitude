@@ -10,4 +10,4 @@ router.get('/grats', checkAuth, readAffirmations);
 router.put('/grats', checkAuth, updateAffirmation);
 router.delete('/grats', checkAuth, deleteAffirmation);
 
-module.exports = router;
+export default router;
