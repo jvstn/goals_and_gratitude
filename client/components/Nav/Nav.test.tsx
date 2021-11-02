@@ -11,6 +11,6 @@ describe('Nav', () => {
       </ChakraProvider>
     )
 
-    expect(getByText("Logo")).toBeInTheDocument()
+    expect(getByText("Goalful")).toBeInTheDocument()
   })
 })
