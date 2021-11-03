@@ -1,7 +1,8 @@
 import { Flex, Stack, Heading, useColorModeValue } from "@chakra-ui/react";
+import { NextPage } from "next";
 import LoginForm from "../components/LoginForm";
 
-export default function SimpleCard() {
+const LoginPage: NextPage = () => {
   return (
     <Flex
       minH={"100vh"}
@@ -17,4 +18,6 @@ export default function SimpleCard() {
       </Stack>
     </Flex>
   );
-}
+};
+
+export default LoginPage;

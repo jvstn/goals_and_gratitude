@@ -1,6 +1,7 @@
 import { Box, Container, Flex, Text } from "@chakra-ui/layout";
 import { Center, ListIcon, List } from "@chakra-ui/react";
 import axios from "axios";
+import { NextPage } from "next";
 import React, { ReactElement, useContext, useEffect } from "react";
 import ItemList from "../components/ItemList";
 import ListItem from "../components/ListItem";
@@ -9,7 +10,7 @@ import Sidebar from "../components/Sidebar";
 import { Context } from "../context";
 import { IItem } from "../context/itemsReducer";
 
-export default function dashboard(): ReactElement {
+const DashboardPage: NextPage = () => {
   const { state, dispatch } = useContext(Context);
   useEffect(() => {
     axios
@@ -47,4 +48,7 @@ export default function dashboard(): ReactElement {
       </Sidebar>
     </div>
   );
-}
+};
+
+
+export default DashboardPage;
