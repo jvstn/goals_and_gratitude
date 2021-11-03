@@ -2,7 +2,14 @@ import { Request, Response } from "express";
 import { Item, ItemNames } from "../../models/item";
 import { User } from "../../models/user";
 import { startOfDay, endOfDay, isBefore, isAfter } from "date-fns/fp";
-import { get } from "http";
+
+declare global {
+  namespace Express {
+    interface User {
+      email: string;
+    }
+  }
+}
 
 
 export const createAffirmation = async (req: Request, res: Response) => {
