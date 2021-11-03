@@ -10,7 +10,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 
 dotenv.config();
-export const port = 5500;
+export const port = process.env.PORT || 5500;
 const mongoUri = process.env.MONGODB_URI || "mongodb://localhost:27017/goals";
 export const app = express();
 app.use(cors());
