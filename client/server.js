@@ -21,7 +21,7 @@ app.prepare().then(() => {
   })
 
   server.listen(3000, () => {
-    console.log('> Ready on port 5000')
+    console.log('> Ready on port 3000')
   })
 }).catch((err) => {
   console.log(err);
