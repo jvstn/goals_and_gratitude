@@ -34,17 +34,19 @@ export default function ListItem({
 }: Props): ReactElement {
   const { state, dispatch } = useContext(Context);
   const [editing, setEditing] = useState(false);
+  const [userInput, setUserInput] = useState("");
   const toast = useToast();
+
   const handleEnter = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       if (editing && index !== undefined) {
         dispatch({
           type: `UPDATE_${makeSingularandCapitalize(itemName)}`,
-          payload: { text: e.currentTarget.value, idx: index },
+          payload: { text: userInput, idx: index },
         });
         axios
           .put(`/api/${itemName}`, {
-            text: e.currentTarget.value,
+            text: userInput,
             _id: data?._id,
           })
           .then(({ data }) => {
@@ -58,7 +60,7 @@ export default function ListItem({
         
         axios
           .post(`api/${itemName}`, {
-            text: e.currentTarget.value,
+            text: userInput,
             email: state.user.email,
           })
           .then(({ data }) => {
@@ -70,6 +72,7 @@ export default function ListItem({
               type: `ADD_${makeSingularandCapitalize(itemName)}`,
               payload: data,
             });
+            setUserInput("");
           })
           .catch((err) => {
             console.log(err);
@@ -118,6 +121,8 @@ export default function ListItem({
               placeholder={fillerText[itemName] + "..."}
               variant="unstyled"
               onKeyDown={handleEnter}
+              onChange={(e) => setUserInput(e.target.value)}
+              value={userInput}
               name={itemName}
             />
           ) : (
