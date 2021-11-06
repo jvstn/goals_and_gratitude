@@ -12,9 +12,10 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { NextPage } from "next";
 import SignupForm from "../components/SignupForm";
 
-export default function SimpleCard() {
+const SignupPage: NextPage = () => {
   return (
     <Flex
       minH={"100vh"}
@@ -31,3 +32,6 @@ export default function SimpleCard() {
     </Flex>
   );
 }
+
+
+export default SignupPage;
