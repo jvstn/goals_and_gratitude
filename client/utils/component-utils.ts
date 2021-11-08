@@ -1,7 +1,17 @@
-import axios from "axios";
 import { IAction } from "../context/userReducer";
+import {Dispatch} from 'react'
+import axios from "axios";
 
-export const useFetchItems = (
+export const changeDay = (
+  direction: "previous" | "next",
+  dispatch: Dispatch<IAction>
+) => {
+  direction === "previous"
+    ? dispatch({ type: "PREVIOUS_DAY" })
+    : dispatch({ type: "NEXT_DAY" });
+};
+
+export const fetchItems = (
   type: string,
   date: string,
   dispatch: React.Dispatch<IAction>
@@ -15,5 +25,3 @@ export const useFetchItems = (
       console.log(err);
     });
 };
-
-
