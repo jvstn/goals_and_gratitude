@@ -11,12 +11,11 @@ declare global {
   }
 }
 
-
 export const createAffirmation = async (req: Request, res: Response) => {
   try {
     const affirmationType = req.url.substr(1, 5);
-    const { text } = req.body;
-    const affirmation = await Item.create({ text });
+    const { text, date } = req.body;
+    const affirmation = await Item.create({ text, createdAt: date });
     await User.findOneAndUpdate(
       { email: req.user.email },
       {
@@ -36,11 +35,19 @@ export const readAffirmations = async (req: Request, res: Response) => {
     console.log(affirmationType);
     const requestDate = req.query.date as string;
     const date = new Date(requestDate);
-    const user = await User.findOne({ email: req.user.email });
+    const user = await User.findOne({
+      email: req.user.email,
+    })
+
     const affirmationsForTheDay = user[affirmationType].filter(
       (affirmation) =>
-        isBefore(affirmation.createdAt, startOfDay(date)) && isAfter(endOfDay(date))
+        isAfter(startOfDay(date), affirmation.createdAt) &&
+        isBefore(endOfDay(date), affirmation.createdAt)
     );
+
+
+    console.log(startOfDay(date));
+    console.log(endOfDay(date));
     console.log(affirmationsForTheDay);
     res.status(200).json(affirmationsForTheDay);
   } catch (err) {
@@ -48,7 +55,6 @@ export const readAffirmations = async (req: Request, res: Response) => {
     res.status(500).send("Something went wrong. Please try again later");
   }
 };
-
 
 export const updateAffirmation = async (req: Request, res: Response) => {
   try {
@@ -64,7 +70,7 @@ export const updateAffirmation = async (req: Request, res: Response) => {
       console.log(err);
       res.status(404).send(`${affirmationType} not found`);
     });
-    
+
     user && res.json(user[affirmationType]);
   } catch (err) {
     console.log(err);
@@ -89,4 +95,4 @@ export const deleteAffirmation = async (req: Request, res: Response) => {
     console.log(err);
     res.status(500).send("Something went wrong. Please try again later");
   }
-}
+};

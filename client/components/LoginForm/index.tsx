@@ -81,7 +81,7 @@ export default function LoginForm(): ReactElement {
               }}
               onClick={handleSubmit}
             >
-              Sign Up
+              Log In
             </Button>
           </Stack>
         </Stack>
