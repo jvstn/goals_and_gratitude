@@ -61,7 +61,7 @@ export default function ListItem({
         axios
           .post(`api/${itemName}`, {
             text: userInput,
-            email: state.user.email,
+            date: state.dayToView,
           })
           .then(({ data }) => {
             toast({
@@ -138,7 +138,7 @@ export default function ListItem({
                 onClick={handleDelete}
                 cursor="pointer"
                 color="red.300"
-                marginLeft="1rem"
+                marginLeft="1rem" 
               />
             </>
           )}

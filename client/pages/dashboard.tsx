@@ -4,23 +4,21 @@ import {FaChevronLeft, FaChevronRight} from 'react-icons/fa'
 import axios from "axios";
 import { add, format, sub } from "date-fns";
 import { NextPage } from "next";
-import React, { ReactElement, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import ItemList from "../components/ItemList";
-import ListItem from "../components/ListItem";
-import Nav from "../components/Nav";
 import Sidebar from "../components/Sidebar";
 import { Context } from "../context";
-import { IItem } from "../context/itemsReducer";
-import { capitalize, makeSingularandCapitalize } from "../utils/string-utils";
+import { capitalize } from "../utils/string-utils";
 
 const DashboardPage: NextPage = () => {
   const { state, dispatch } = useContext(Context);
-  const { user } = state;
+  const { user, dayToView } = state;
   useEffect(() => {
-    fetchItems("goals", state.dayToView.toISOString());
+    console.log(dayToView)
+    fetchItems("goals", dayToView.toISOString());
 
-    fetchItems("grats", state.dayToView.toISOString());
-  }, [state.dayToView]);
+    fetchItems("grats", dayToView.toISOString());
+  }, [dayToView]);
 
   const fetchItems = (type: string, date: string) => {
     axios
@@ -40,16 +38,16 @@ const DashboardPage: NextPage = () => {
   return (
     <div>
       <Sidebar>
-        <Stack>
-          <Text> {format(sub(state.dayToView, { days: 1 }), "MMM d")}</Text>
-          <Icon as={FaChevronLeft} fontSize={"4xl"} cursor={"pointer"} onClick={() => handleDayChange("previous")} />
+        <Stack onClick={() => handleDayChange("previous")}>
+          <Text> {format(sub(dayToView, { days: 1 }), "MMM d")}</Text>
+          <Icon as={FaChevronLeft} fontSize={"4xl"} cursor={"pointer"} />
         </Stack>
         <Container centerContent>
           <Text fontSize={"5xl"} fontWeight="bold">
             Hi {user.name ? capitalize(user.name) : ""} 👋 <br />
           </Text>
           <Text fontSize={"3xl"}>
-            Here are your affirmations for {format(state.dayToView, "MMM d")}
+            Here are your affirmations for {format(dayToView, "MMM d")}
           </Text>
           <Container>
             <ItemList type="goals" />
@@ -58,9 +56,9 @@ const DashboardPage: NextPage = () => {
             </Box>
           </Container>
         </Container>
-        <Stack>
-          <Text> {format(add(state.dayToView, { days: 1 }), "MMM d")}</Text>
-          <Icon as={FaChevronRight} fontSize={"4xl"} cursor={"pointer"} onClick={() => handleDayChange("next")} />
+        <Stack onClick={() => handleDayChange("next")}>
+          <Text> {format(add(dayToView, { days: 1 }), "MMM d")}</Text>
+          <Icon as={FaChevronRight} fontSize={"4xl"} cursor={"pointer"} />
         </Stack>
       </Sidebar>
     </div>
