@@ -57,7 +57,6 @@ export default function ListItem({
           });
         setEditing(false);
       } else {
-        
         axios
           .post(`api/${itemName}`, {
             text: userInput,
@@ -127,8 +126,8 @@ export default function ListItem({
             />
           ) : (
             <>
-              <Center>
-                <Box width="15vw">
+              <Center marginLeft={"auto"}>
+                <Box>
                   <Text onClick={handleEdit}>
                     {fillerText[itemName] + " " + firstCharLower(data?.text)}
                   </Text>
@@ -136,9 +135,9 @@ export default function ListItem({
               </Center>
               <DeleteIcon
                 onClick={handleDelete}
-                cursor="pointer"
-                color="red.300"
-                marginLeft="1rem" 
+                cursor={"pointer"}
+                color={"red.300"}
+                marginLeft={"auto"}
               />
             </>
           )}
