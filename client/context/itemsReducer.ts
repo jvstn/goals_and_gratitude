@@ -21,11 +21,11 @@ export const itemsReducer = (state: IItemState, action: IAction) => {
         ...state,
         dayToView: nextDay,
       };
-    case "LAST_DAY":
-      const lastDay = sub(state.dayToView, { days: 1 });
+    case "PREVIOUS_DAY":
+      const prevDay = sub(state.dayToView, { days: 1 });
       return {
         ...state,
-        dayToView: lastDay,
+        dayToView: prevDay,
       };
     case "SET_GOALS":
       return {

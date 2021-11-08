@@ -9,6 +9,10 @@ const userSchema = new Schema<IUser>({
     required: true,
     unique: true
   },
+  name: {
+    type: 'string',
+    required: true
+  },
   password: String,
   createdAt: { type: "string", default: new Date().toISOString() },
   goals: [itemSchema],

@@ -25,21 +25,25 @@ import {
 import { IconType } from "react-icons";
 import { ReactText } from "react";
 import { firstCharLower } from "../../utils/string-utils";
+import Logo from "../Logo";
+import { FaDashcube, FaHandHoldingHeart } from "react-icons/fa";
+import { GiStairsGoal } from 'react-icons/gi'
+import { MdDashboard } from 'react-icons/md'
 
 interface LinkItemProps {
   name: string;
   icon: IconType;
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: "Goals", icon: FiTrendingUp },
-  { name: "Gratitude", icon: FiCompass },
-  { name: "Meditation", icon: FiStar },
+  { name: "Dashboard", icon: MdDashboard },
+  { name: "Goals", icon: GiStairsGoal },
+  { name: "Gratitude", icon: FaHandHoldingHeart },
 ];
 
 export default function Sidebar({ children }: { children: ReactNode }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
+    <Box minH="100vh" bg={"gray.100"}>
       <SidebarContent
         onClose={() => onClose}
         display={{ base: "none", md: "block" }}
@@ -59,7 +63,12 @@ export default function Sidebar({ children }: { children: ReactNode }) {
       </Drawer>
       {/* mobilenav */}
       <MobileNav display={{ base: "flex", md: "none" }} onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 60 }} p="4">
+      <Box
+        display={"flex"}
+        alignItems={"center"}
+        ml={{ base: 0, md: 60 }}
+        p="4"
+      >
         {children}
       </Box>
     </Box>
@@ -83,16 +92,18 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Link href="/" textDecoration="none">
-          <Text  fontSize="2xl" fontFamily="monospace" fontWeight="bold" textDecoration="none">
-            Goalful
-          </Text>
+          <Logo />
         </Link>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-          <NavItem href={firstCharLower(link.name)} key={link.name} icon={link.icon}>
-            {link.name}
-          </NavItem>
+        <NavItem
+          href={firstCharLower(link.name)}
+          key={link.name}
+          icon={link.icon}
+        >
+          {link.name}
+        </NavItem>
       ))}
     </Box>
   );
@@ -157,10 +168,9 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         aria-label="open menu"
         icon={<FiMenu />}
       />
-
-      <Text fontSize="2xl" ml="8" fontFamily="monospace" fontWeight="bold">
-        Goalful
-      </Text>
+      <Box mx={"auto"}>
+        <Logo />
+      </Box>
     </Flex>
   );
 };
