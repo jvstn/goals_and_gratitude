@@ -11,7 +11,7 @@ import React, {
   useState,
 } from "react";
 import { Context } from "../../context";
-import { IItem } from "../../context/itemsReducer";
+import { IItem } from "../../context/context-types";
 import {
   firstCharLower,
   makeSingularandCapitalize,

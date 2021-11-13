@@ -1,7 +1,5 @@
-export interface IAction {
-  type: string,
-  payload?: any,
-}
+import { IAction } from "./context-types";
+
 export const userReducer = (state: any, action: IAction) => {
   switch (action.type) {
     case "SET_USER":

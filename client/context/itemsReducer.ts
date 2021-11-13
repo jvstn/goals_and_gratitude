@@ -1,17 +1,7 @@
-import { IAction } from "./userReducer";
 import { add, sub } from "date-fns";
+import { IAction, IItemState } from "./context-types";
 
-export interface IItem {
-  text: string;
-  _id?: number;
-  createdAt?: Date;
-}
 
-export interface IItemState {
-  dayToView: Date;
-  goals: IItem[];
-  grats: IItem[];
-}
 
 export const itemsReducer = (state: IItemState, action: IAction) => {
   switch (action.type) {

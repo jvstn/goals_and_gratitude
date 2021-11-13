@@ -1,7 +1,7 @@
 import { Box, List, Text } from '@chakra-ui/layout';
 import React, { ReactElement, useContext } from 'react'
 import { Context } from '../../context';
-import { IItem } from '../../context/itemsReducer';
+import { IItem } from '../../context/context-types';
 import ListItem from '../ListItem';
 
 interface Props {

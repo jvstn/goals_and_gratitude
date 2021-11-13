@@ -5,19 +5,11 @@ import {
   useReducer,
 } from "react";
 import { combineReducers } from "../utils/context-utils";
-import { IItem, itemsReducer } from "./itemsReducer";
-import { userReducer, IAction } from "./userReducer";
+import { IAction, IAppState } from "./context-types";
+import { itemsReducer } from "./itemsReducer";
+import { userReducer } from "./userReducer";
 
-export interface IAppState {
-  user: {
-    name: string,
-    email: string,
-    [otherProps: string]: any
-  };
-  dayToView: Date;
-  goals: IItem[];
-  grats: IItem[];
-}
+
 
 const initialState: IAppState = {
   user: {
