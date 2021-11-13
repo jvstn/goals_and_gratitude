@@ -26,7 +26,7 @@ export default function Hero() {
             Stay Focused And
             <br />
             <Text as={"span"} color={"purple.400"}>
-              Stay Happy.
+              Stay Happy Balanced
             </Text>
           </Heading>
           <Text color={"gray.500"}>
