@@ -1,6 +1,6 @@
-import { Box, Container, Stack, Text,} from "@chakra-ui/layout";
+import { Box, Container, Stack, Text } from "@chakra-ui/layout";
 import { Icon } from "@chakra-ui/react";
-import {FaChevronLeft, FaChevronRight} from 'react-icons/fa'
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { add, format, sub } from "date-fns";
 import { NextPage } from "next";
 import React, { useContext, useEffect } from "react";
@@ -8,8 +8,7 @@ import ItemList from "../components/ItemList";
 import Sidebar from "../components/Sidebar";
 import { Context } from "../context";
 import { capitalize } from "../utils/string-utils";
-import { fetchItems, changeDay} from '../utils/component-utils'
-
+import { fetchItems, changeDay } from "../utils/component-utils";
 
 const DashboardPage: NextPage = () => {
   const { state, dispatch } = useContext(Context);
@@ -33,7 +32,7 @@ const DashboardPage: NextPage = () => {
             Hi {user.name ? capitalize(user.name) : ""} 👋 <br />
           </Text>
           <Text fontSize={"3xl"}>
-            Here are your affirmations for {format(dayToView, "MMM d")}
+            Affirmations for {format(dayToView, "MMM d")}
           </Text>
           <Container>
             <ItemList type="goals" />
@@ -50,6 +49,5 @@ const DashboardPage: NextPage = () => {
     </div>
   );
 };
-
 
 export default DashboardPage;
