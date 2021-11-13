@@ -8,21 +8,20 @@ import ItemList from "../components/ItemList";
 import Sidebar from "../components/Sidebar";
 import { Context } from "../context";
 import { capitalize } from "../utils/string-utils";
-import { useDayChange } from "../hooks/useDayChange";
-import { useFetchItems } from "../hooks/useFetchItems";
+import { changeDay, fetchItems } from "../utils/component-utils";
 
 const GoalsPage: NextPage = () => {
   const { state, dispatch } = useContext(Context);
   const { user, dayToView } = state;
   useEffect(() => {
-    useFetchItems("goals", dayToView.toISOString(), dispatch);
+    fetchItems("goals", dayToView.toISOString(), dispatch);
 
   }, [dayToView]);
 
   return (
     <div>
       <Sidebar>
-        <Stack onClick={() => useDayChange("previous", dispatch)}>
+        <Stack onClick={() => changeDay("previous", dispatch)}>
           <Text> {format(sub(dayToView, { days: 1 }), "MMM d")}</Text>
           <Icon as={FaChevronLeft} fontSize={"4xl"} cursor={"pointer"} />
         </Stack>
@@ -37,7 +36,7 @@ const GoalsPage: NextPage = () => {
             <ItemList type="goals" />
           </Container>
         </Container>
-        <Stack onClick={() => useDayChange("next", dispatch)}>
+        <Stack onClick={() => changeDay("next", dispatch)}>
           <Text> {format(add(dayToView, { days: 1 }), "MMM d")}</Text>
           <Icon as={FaChevronRight} fontSize={"4xl"} cursor={"pointer"} />
         </Stack>
