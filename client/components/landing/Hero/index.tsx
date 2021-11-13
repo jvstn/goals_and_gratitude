@@ -5,6 +5,7 @@ import {
   Text,
   Button,
   Stack,
+  Link
 } from "@chakra-ui/react";
 
 export default function Hero() {
@@ -38,17 +39,19 @@ export default function Hero() {
             alignSelf={"center"}
             position={"relative"}
           >
-            <Button
-              colorScheme={"purple"}
-              bg={"purple.400"}
-              rounded={"full"}
-              px={6}
-              _hover={{
-                bg: "purple.500",
-              }}
-            >
-              Get Started
-            </Button>
+            <Link href={"/login"}>
+              <Button
+                colorScheme={"purple"}
+                bg={"purple.400"}
+                rounded={"full"}
+                px={6}
+                _hover={{
+                  bg: "purple.500",
+                }}
+              >
+                Get Started
+              </Button>
+            </Link>
           </Stack>
         </Stack>
       </Container>
