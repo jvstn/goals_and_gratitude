@@ -7,6 +7,6 @@ describe('TestimonialSection', () => {
   it('should render', () => {
     const { getByText } = render(<TestimonialSection />)
 
-    expect(getByText("Mindblowing Service")).toBeInTheDocument();
+    expect(getByText("Minimal Design")).toBeInTheDocument();
   })
 })

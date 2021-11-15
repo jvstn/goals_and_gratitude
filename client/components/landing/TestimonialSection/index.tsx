@@ -17,8 +17,8 @@ export default function TestimonialSection() {
     <Box id={"testimonial"} bg={useColorModeValue("gray.100", "gray.700")}>
       <Container maxW={"7xl"} py={16} as={Stack} spacing={12}>
         <Stack spacing={0} align={"center"}>
-          <Heading>Our Clients Speak</Heading>
-          <Text>We have been working with clients around the world</Text>
+          <Heading>Testimonials</Heading>
+          <Text>Thoughts From Our Users</Text>
         </Stack>
         <Stack
           direction={{ base: "column", md: "row" }}
@@ -26,50 +26,48 @@ export default function TestimonialSection() {
         >
           <Box>
             <TestimonialContent>
-              <TestimonialHeading>Efficient Collaborating</TestimonialHeading>
+              <TestimonialHeading>Efficient Tracking</TestimonialHeading>
               <TestimonialText>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor
-                neque sed imperdiet nibh lectus feugiat nunc sem.
+                So cool to have a tool that can track your goals and things
+                you're thankful for.
               </TestimonialText>
             </TestimonialContent>
             <TestimonialAvatar
               src={
-                "https://images.unsplash.com/photo-1586297135537-94bc9ba060aa?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80"
+                "https://miro.medium.com/max/1500/1*isr5KXoLhLGhDFquf_cr7g.png"
               }
-              name={"Jane Cooper"}
-              title={"CEO at ABC Corporation"}
+              name={"Andrea Dickerson"}
+              title={"Developer's Mother"}
             />
           </Box>
           <Box>
             <TestimonialContent>
-              <TestimonialHeading>Intuitive Design</TestimonialHeading>
+              <TestimonialHeading>Minimal Design</TestimonialHeading>
               <TestimonialText>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor
-                neque sed imperdiet nibh lectus feugiat nunc sem.
+                I love the easy to use design and the minimalistic feel.
               </TestimonialText>
             </TestimonialContent>
             <TestimonialAvatar
               src={
-                "https://images.unsplash.com/photo-1586297135537-94bc9ba060aa?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80"
+                "https://images.unsplash.com/photo-1528763380143-65b3ac89a3ff?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2433&q=80"
               }
-              name={"Jane Cooper"}
-              title={"CEO at ABC Corporation"}
+              name={"Eric Cooper"}
+              title={"Friend of the Developer"}
             />
           </Box>
           <Box>
             <TestimonialContent>
-              <TestimonialHeading>Mindblowing Service</TestimonialHeading>
+              <TestimonialHeading>Inspiring Quotes</TestimonialHeading>
               <TestimonialText>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor
-                neque sed imperdiet nibh lectus feugiat nunc sem.
+                The quotes are so inspiring and the app is so easy to use.
               </TestimonialText>
             </TestimonialContent>
             <TestimonialAvatar
               src={
-                "https://images.unsplash.com/photo-1586297135537-94bc9ba060aa?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80"
+                "https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2067&q=80"
               }
-              name={"Jane Cooper"}
-              title={"CEO at ABC Corporation"}
+              name={"Patricia London"}
+              title={"Developer's Sister"}
             />
           </Box>
         </Stack>
