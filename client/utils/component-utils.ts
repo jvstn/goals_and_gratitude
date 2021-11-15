@@ -1,6 +1,6 @@
-import { IAction } from "../context/userReducer";
 import {Dispatch} from 'react'
 import axios from "axios";
+import { IAction } from '../context/context-types';
 
 export const changeDay = (
   direction: "previous" | "next",

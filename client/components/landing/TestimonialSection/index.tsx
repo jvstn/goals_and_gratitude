@@ -29,7 +29,7 @@ export default function TestimonialSection() {
               <TestimonialHeading>Efficient Tracking</TestimonialHeading>
               <TestimonialText>
                 So cool to have a tool that can track your goals and things
-                you're thankful for.
+                you&apos;re thankful for.
               </TestimonialText>
             </TestimonialContent>
             <TestimonialAvatar
